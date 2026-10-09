@@ -1,0 +1,17 @@
+Camera is asked only after the person opens Scan, the first time Scan opens on a device with a camera and the person has not answered yet. The system dialog is the first ask. Usage description: Bondmark uses the camera to read barcodes on labeled crates and QR codes on bay slot plates so each move is recorded on the manifest. If denied or restricted, Scan shows The camera is off. Open Settings to change it, or type the code below. plus Open Settings. There is no in-app Allow or Enable button. No microphone, photos, location, or tracking permission.
+
+There is no login, no in-app purchase, no user-generated content, no account deletion flow, and no App Tracking Transparency prompt.
+
+Bondmark is a local crate-and-bay manifest for people who already label crates and slot plates and do not run warehouse software. An attendant scans a labeled crate, then scans the bay slot plate, so each move is written on the manifest. It is for small shops, touring crews, and prop rooms that need a record of what sits where.
+
+No credentials or demo account are needed. Cold launch shows the system launch screen, then the introduction or Manifest. If the introduction is unfinished, three pages appear: Bond the bay (Skip, Next); Arm, then seat (Skip, Next); Keep the record (Skip, Continue). Skip or Continue finishes the introduction and shows Manifest. On a physical device that is the introduction, then an empty Manifest. On Simulator the first launch can skip the introduction and open Manifest already filled. Later launches go to Manifest if the introduction was finished. From Manifest tap Scan. Answer the system camera dialog if it appears. When allowed, the line is Point at a crate barcode or a slot plate. Type a code and Use code still work. With no camera, No camera on this device. Use a sample code or type one. and the sample buttons appear. On an empty Manifest, type 5901234123457 in Type a code and tap Use code to add Crate 3457, In stock at Home. Open Scan again, type the same code in Type a code and tap Use code to arm, then type PLATE-BAY-A in Type a code and tap Use code before the window closes to seat it on Bay A as Issued. If crates are already listed, expand a row for Who holds it, Mark issued, Mark in stock, Share label, and Print label. Lifecycle is a sheet headed Issued too long; overdue cards have Relinquish. Inventory is a sheet to choose a crate and Mark issued or Mark in stock. Swipe a sheet down. The gear opens Settings with Export CSV, Contact, Show introduction, and Reset manifest.
+
+Crate records, seats, and holders stay on this device. Nothing is signed in. Export CSV only shares a file the person chooses to send. Contact on Settings opens the support page.
+
+UI copy is English only. Dates and counts follow the device region and calendar. There is no country gate and no language picker.
+
+No licence or regulated-industry paperwork applies. This is a local crate-and-bay manifest, not a regulated warehouse or medical product.
+
+The app is a personal log only and gives no recommendations. It does not look up products, calories, or medical data, and there are no citations.
+
+A scannable QR (qr-code.png) is attached to this review and encodes 5901234123457. Simulator users type those digits in Type a code and tap Use code.

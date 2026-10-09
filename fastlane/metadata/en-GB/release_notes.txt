@@ -1,0 +1,5 @@
+This 1.0 release is a local crate-and-bay manifest for small shops, touring crews and prop rooms that already label crates and slot plates.
+
+First launch shows three introduction pages: Bond the bay, Arm, then seat, and Keep the record. Skip or Continue opens Manifest.
+
+Scan a labelled crate, then the slot plate, so the move is witnessed. Type a code when the camera is off or missing. A known crate opens an eight-second window. Statuses are In stock, Issued and Relinquished. Search by Name or code. Filter All, In stock, Issued, Relinquished. Lifecycle ranks crates issued longer than thirty days. Relinquish freezes a crate. Settings includes Export CSV, Contact, Show introduction and Reset manifest.

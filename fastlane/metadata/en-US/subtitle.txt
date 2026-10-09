@@ -1,0 +1,1 @@
+Local crate-and-bay manifest

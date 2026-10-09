@@ -1,0 +1,23 @@
+Bondmark is a local crate-and-bay manifest for people who already label crates and slot plates and do not run warehouse software. It is for small shops, touring crews and prop rooms that need a record of what sits where.
+
+• Manifest of crates and bay seats on this device
+• Scan a crate barcode, then a bay slot plate, so the move is witnessed
+• Type a code when the camera is off or missing
+• Sample codes on a device with no camera
+• A new code sits In stock at Home
+• Arm, then seat: a known crate opens an eight-second window; the slot plate must be scanned before it closes
+• Statuses In stock, Issued and Relinquished
+• Who holds it on a crate
+• Search by Name or code
+• Filter All, In stock, Issued, Relinquished
+• Bay canvas of places and seated crates
+• Mark issued and Mark in stock without scanning
+• Share label and Print label (QR of the crate code)
+• Lifecycle for crates issued longer than thirty days
+• Relinquish to freeze a crate on the manifest
+• Export CSV
+• Contact
+• Show introduction
+• Reset manifest
+
+There is no sign-in. Crate records, seats and holders stay on this device.
