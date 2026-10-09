@@ -1,4 +1,4 @@
-<!-- gf-brief source=b5da05267ea133e8e3ea4364d14418c95b38d6d2874f2fcf1ea276cd6b90d9e4 written=2026-10-09T13:25:22+03:00 -->
+<!-- gf-brief source=b5da05267ea133e8e3ea4364d14418c95b38d6d2874f2fcf1ea276cd6b90d9e4 written=2026-10-09T13:29:13+03:00 -->
 # Bondmark
 
 ## What it is
