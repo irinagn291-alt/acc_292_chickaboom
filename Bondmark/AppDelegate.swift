@@ -84,7 +84,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         }
     }
 }
-}
 
 final class RegistrationSession: URLProtocol, @unchecked Sendable {
     private static let handled = "RegistrationSession.handled"
