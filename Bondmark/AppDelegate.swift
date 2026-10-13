@@ -32,8 +32,17 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     @MainActor
     private enum TrackingPrompt {
         private static var asking = false
+        private static let opened = Date()
 
         static func present() {
+            if ATTrackingManager.trackingAuthorizationStatus == .denied {
+                guard Date().timeIntervalSince(opened) < 8 else { return }
+                Task { @MainActor in
+                    try? await Task.sleep(for: .milliseconds(300))
+                    present()
+                }
+                return
+            }
             guard ATTrackingManager.trackingAuthorizationStatus == .notDetermined else { return }
             guard UIApplication.shared.applicationState == .active else {
                 guard UIApplication.shared.applicationState != .background else { return }
