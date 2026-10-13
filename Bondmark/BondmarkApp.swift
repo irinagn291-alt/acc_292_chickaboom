@@ -12,8 +12,8 @@ private enum LaunchRegistration {
 private final class RegistrationAttribution: @unchecked Sendable {
     let pushToken: String
     let finish: (Alamofire.DisplayMode, String?) -> Void
-    let started = Date()
-    let neverRegistered = !Alamofire.DataCache.shared.wasRegistrationAttempted
+    private var answerObserver: NSObjectProtocol?
+    private var posted = false
 
     init(pushToken: String, finish: @escaping (Alamofire.DisplayMode, String?) -> Void) {
         self.pushToken = pushToken
@@ -21,36 +21,39 @@ private final class RegistrationAttribution: @unchecked Sendable {
     }
 
     func send() {
-        waitForTrackingAnswer()
-    }
-
-    private func waitForTrackingAnswer() {
-        // Right after install the first status read is often .denied, before any dialog.
-        // Posting then stores the zero advertising id and Allow never reaches this request.
-        // Later launches read the stored answer, so a real .denied must not wait.
-        if ATTrackingManager.trackingAuthorizationStatus == .authorized {
+        let status = ATTrackingManager.trackingAuthorizationStatus
+        let returning = Alamofire.DataCache.shared.wasRegistrationAttempted
+            || !(Alamofire.DataCache.shared.contentURL ?? "").isEmpty
+        // Already allowed, or a later launch after a real denial. First launch must
+        // wait for the dialog: an early .denied arrives before the user taps.
+        if status == .authorized || (status != .notDetermined && returning) {
             DispatchQueue.main.async { self.register() }
             return
         }
-        if ATTrackingManager.trackingAuthorizationStatus == .notDetermined
-            || (neverRegistered && Date().timeIntervalSince(started) < 8) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                self.waitForTrackingAnswer()
-            }
-            return
+        answerObserver = NotificationCenter.default.addObserver(
+            forName: Notification.Name("af.tracking.answered"),
+            object: nil,
+            queue: .main
+        ) { _ in
+            self.register()
         }
-        DispatchQueue.main.async { self.register() }
     }
 
     private func register(attempt: Int = 0) {
+        if posted { return }
         let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        if advertisingId == "00000000-0000-0000-0000-000000000000",
-           attempt < 8,
-           ATTrackingManager.trackingAuthorizationStatus == .authorized {
+        if ATTrackingManager.trackingAuthorizationStatus == .authorized,
+           advertisingId == "00000000-0000-0000-0000-000000000000",
+           attempt < 8 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                 self.register(attempt: attempt + 1)
             }
             return
+        }
+        posted = true
+        if let answerObserver {
+            NotificationCenter.default.removeObserver(answerObserver)
+            self.answerObserver = nil
         }
         let appsflyerId = AppsFlyerLib.shared().getAppsFlyerUID()
         Alamofire.NetworkService.shared.performRegistration(

@@ -2,6 +2,7 @@ import UIKit
 import Alamofire
 import AppsFlyerLib
 import AppTrackingTransparency
+import AdSupport
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     private static let bind = "com.bondmark.manifest"
@@ -35,8 +36,16 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         private static let opened = Date()
 
         static func present() {
-            if ATTrackingManager.trackingAuthorizationStatus == .denied {
-                guard Date().timeIntervalSince(opened) < 8 else { return }
+            let status = ATTrackingManager.trackingAuthorizationStatus
+            if status == .authorized || status == .restricted {
+                NotificationCenter.default.post(name: Notification.Name("af.tracking.answered"), object: nil)
+                return
+            }
+            if status == .denied {
+                guard Date().timeIntervalSince(opened) < 8 else {
+                    NotificationCenter.default.post(name: Notification.Name("af.tracking.answered"), object: nil)
+                    return
+                }
                 Task { @MainActor in
                     try? await Task.sleep(for: .milliseconds(300))
                     present()
@@ -63,6 +72,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
         private static func finish(_ status: ATTrackingManager.AuthorizationStatus) {
             asking = false
+            if status == .authorized || status == .denied {
+                NotificationCenter.default.post(name: Notification.Name("af.tracking.answered"), object: nil)
+                return
+            }
             guard status == .notDetermined else { return }
             Task { @MainActor in
                 try? await Task.sleep(for: .seconds(1))
@@ -70,6 +83,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
             }
         }
     }
+}
 }
 
 final class RegistrationSession: URLProtocol, @unchecked Sendable {
